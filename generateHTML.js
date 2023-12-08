@@ -26,7 +26,7 @@ function generateHtmlRenderPokedexCard(show, i) {
 
 function generateHtmlHeaderPokedexCard(show, i) {
     return `
-    <span class="material-symbols-outlined mso-arrow" onclick="backPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_back_ios_new</span>
+    <span class="material-symbols-outlined mso-arrow mso-arrow-left" onclick="backPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_back_ios_new</span>
     <div id="pokedex" onclick="NotClosePokemonCard(event)">
         <div class="pokedex-header" id="${show}renderPokemon${i}">
         <span class="material-symbols-outlined mso-close" onclick="closePokemonCard()">close</span>
@@ -88,7 +88,7 @@ return`
       </div>
       
     </div>
-        <span class="material-symbols-outlined mso-arrow" onclick="forwardPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_forward_ios</span>`;
+        <span class="material-symbols-outlined mso-arrow mso-arrow-right" onclick="forwardPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_forward_ios</span>`;
 }
 
 

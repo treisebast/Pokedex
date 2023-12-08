@@ -153,7 +153,7 @@ body {
     margin: auto;
 }
 
-.render-types{
+.render-types {
     margin: auto;
 }
 
@@ -179,7 +179,7 @@ body {
     gap: 24px;
     margin: 24px;
     justify-content: center;
-    max-width: 1670px;
+    max-width: 1400px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -364,19 +364,89 @@ body {
     0% {
         transform: scale(0.9);
         opacity: 0.7;
-      }
-    
-      50% {
+    }
+
+    50% {
         transform: scale(1);
         opacity: 0.85;
-      }
-    
-      100% {
+    }
+
+    100% {
         transform: scale(0.9);
         opacity: 0.7;
-      }
+    }
 }
 
 .loading {
     animation: loadingAnimation 1500ms infinite;
+}
+
+
+@media screen and (max-width: 1400px) {
+    .content {
+        max-width: 1200px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .content {
+        max-width: 800px;
+    }
+
+    .inputfield {
+        margin-left: 24px !important;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .content {
+        max-width: 500px;
+    }
+
+    .inputfield {
+        display: none;
+    }
+
+    .mso-arrow-right{
+        position: absolute;
+        bottom: 64px;
+        right: 50px;
+    }
+
+    .mso-arrow-left{
+        position: absolute;
+        bottom: 64px;
+        left: 50px;
+    }
+
+    .dialog-bg{
+        align-items: baseline;
+        padding: 64px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .pokemonTitle {
+        scale: 1.2;
+    }
+
+    .iconimg span {
+        font-size: 24px;
+    }
+
+    .pokemonTitle-position {
+        height: 190px;
+        top: 32px
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+
+    .iconimg span {
+        font-size: 24px;
+    }
 }
