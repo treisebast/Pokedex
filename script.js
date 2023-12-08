@@ -76,7 +76,7 @@ function generateHtmlRenderPokemon(i) {
         <h1 class="pokemon-name" id="pokemonName${i}">Name</h1>
 
         <div class="type-id-position">
-            <span id="type${i}" class="render-type"></span>
+            <div id="types${i}" class="render-types"></div>
             <div id="pokemonID${i}" class="render-pokemon-id"></div>
         </div>
 
@@ -95,15 +95,31 @@ function renderPokemonElement(currentPokemon, i, show) {
     document.getElementById(`${show}pokemonID${i}`).innerHTML = formateNumber(currentPokemon["id"]);
 
     let pokemonBgColor = document.getElementById(`${show}renderPokemon${i}`);
-    let pokemonType = document.getElementById(`${show}type${i}`);
-    pokemonType.innerHTML = currentPokemon["types"][0]["type"]["name"];
-
-    whichColorBgPokemon(pokemonBgColor, pokemonType);
+    let pokemonType = document.getElementById(`${show}types${i}`);
+    for (let j = 0; j < currentPokemon["types"].length; j++) {
+        let type = currentPokemon["types"][j];
+        pokemonType.innerHTML += `<div class="render-type">${type["type"]["name"]}</div>`;
+    }
+    whichColorBgPokemon(currentPokemon, pokemonBgColor, pokemonType);
 }
 
-function whichColorBgPokemon(pokemonBgColor, pokemonType) {
-    if (pokemonType.innerHTML in typeColors) {
-        pokemonBgColor.style.backgroundColor = typeColors[pokemonType.innerHTML];
+function whichColorBgPokemon(currentPokemon, pokemonBgColor, pokemonType) {
+    if (currentPokemon["types"].length === 1) {
+        const type = currentPokemon["types"][0]["type"]["name"];
+        if (type in typeColors) {
+            pokemonBgColor.style.backgroundColor = typeColors[type];
+        } else {
+            pokemonBgColor.style.backgroundColor = "gray";
+        }
+    } else if (currentPokemon["types"].length === 2) {
+        const type1 = currentPokemon["types"][0]["type"]["name"];
+        const type2 = currentPokemon["types"][1]["type"]["name"];
+        
+        if (type1 in typeColors && type2 in typeColors) {
+            pokemonBgColor.style.background = `linear-gradient(to bottom right, ${typeColors[type1]}, ${typeColors[type2]})`;
+        } else {
+            pokemonBgColor.style.backgroundColor = "gray";
+        }
     } else {
         pokemonBgColor.style.backgroundColor = "gray";
     }
@@ -136,7 +152,7 @@ function showPokemonCard(i) {
             <div class ="card-position">
                 <div class="pekedex-header-left">
                     <div class ="card-position-typeId"> 
-                        <div class="render-type margin-top z-index" id="${show}type${i}">#</div>
+                        <div class="margin-top z-index" id="${show}types${i}"></div>
                         <div class="render-pokemon-id margin-top z-index" id="${show}pokemonID${i}">#</div>
                     </div>
                     <div class="opasity-pokeball"></div>
