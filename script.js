@@ -36,14 +36,14 @@ async function renderUrl() {
 
 async function loadPokemonJson(morePokemon) {
     if (morePokemon) {
-        let j = k = pokemons.length + 1 ;
+        let j = (k = pokemons.length + 1);
         for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
             let url = urls[j];
             await loadPokemonJsonLoop(url);
         }
     } else {
         for (let i = 1; i <= loadLimit && i <= pokemonId; i++) {
-            let url = urls[i]; 
+            let url = urls[i];
             await loadPokemonJsonLoop(url);
         }
     }
@@ -117,7 +117,7 @@ function formateNumber(zahl) {
 
 // Hovern PokemonCard
 function handleHover(element) {
-    element.querySelector('.hover-overlay').classList.toggle('hover-element');
+    element.querySelector(".hover-overlay").classList.toggle("hover-element");
 }
 
 // Dialog bauen>> ShowPokemonCard
@@ -196,7 +196,7 @@ function showPokemonCard(i) {
         `;
 
     renderPokemonElement(currentPokemon, i, show);
-    switchTab('aboutTab' + i, show);
+    switchTab("aboutTab" + i, show);
     renderAboutPokemon(currentPokemon, i);
     renderStatsPokemon(currentPokemon, i);
     renderMovePokemon(currentPokemon, i);
@@ -204,38 +204,37 @@ function showPokemonCard(i) {
 //   <div class="tab-item" id="${show}evolutionTab${i}" onclick="switchTab('evolutionTab${i}', '${show}')">Evolution</div>
 
 // <div class="tab-content" id="evolutionTab${i}">
-            //     <div class="evolutionImage">
-            //         <img id="evolutionImage${i + 1}">    
-            //         <img id="evolutionImage${i + 2}">
-            //         <img id="evolutionImage${i + 3}">
-            //     </div>
-            // </div>
+//     <div class="evolutionImage">
+//         <img id="evolutionImage${i + 1}">
+//         <img id="evolutionImage${i + 2}">
+//         <img id="evolutionImage${i + 3}">
+//     </div>
+// </div>
 
-
-function renderAboutPokemon(currentPokemon, i){
-    document.getElementById(`aboutExperience${i}`).innerHTML = currentPokemon['base_experience'];
-    document.getElementById(`aboutHeight${i}`).innerHTML = `${(currentPokemon['height'])/10} m`;
-    document.getElementById(`aboutWeight${i}`).innerHTML = `${(currentPokemon['weight'])/10} kg`;
+function renderAboutPokemon(currentPokemon, i) {
+    document.getElementById(`aboutExperience${i}`).innerHTML = currentPokemon["base_experience"];
+    document.getElementById(`aboutHeight${i}`).innerHTML = `${currentPokemon["height"] / 10} m`;
+    document.getElementById(`aboutWeight${i}`).innerHTML = `${currentPokemon["weight"] / 10} kg`;
 }
 
-function renderStatsPokemon(currentPokemon, i){
+function renderStatsPokemon(currentPokemon, i) {
     let base_stat = [];
     let name_stat = [];
-    for (let i = 0; i < currentPokemon['stats'].length; i++) {
-        let stat = currentPokemon['stats'][i]['base_stat'];
+    for (let i = 0; i < currentPokemon["stats"].length; i++) {
+        let stat = currentPokemon["stats"][i]["base_stat"];
         base_stat.push(stat);
-        let name = currentPokemon['stats'][i]['stat']['name'];
+        let name = currentPokemon["stats"][i]["stat"]["name"];
         name = name.charAt(0).toUpperCase() + name.slice(1);
-        name_stat.push(name); 
+        name_stat.push(name);
     }
     renderChart(base_stat, name_stat);
 }
 
-function renderMovePokemon(currentPokemon, i){
+function renderMovePokemon(currentPokemon, i) {
     let moveContent = document.getElementById(`moveContent${i}`);
-    moveContent.innerHTML= "";
-    for (let i = 0; i < currentPokemon['moves'].length; i++) {
-        let move = currentPokemon['moves'][i]['move']['name'];
+    moveContent.innerHTML = "";
+    for (let i = 0; i < currentPokemon["moves"].length; i++) {
+        let move = currentPokemon["moves"][i]["move"]["name"];
         move = move.charAt(0).toUpperCase() + move.slice(1);
         moveContent.innerHTML += `<li>${move}</li>`;
     }
@@ -244,16 +243,16 @@ function renderMovePokemon(currentPokemon, i){
 // Tabulator Infobox
 function switchTab(tabName, show) {
     console.log(show + tabName);
-    let allTabs = document.querySelectorAll('.tab-content');
-    allTabs.forEach(tab => tab.classList.remove('active'));
-    let allItem = document.querySelectorAll('.tab-item');
-    allItem.forEach(item => item.classList.remove('itemDesign')); 
-    
+    let allTabs = document.querySelectorAll(".tab-content");
+    allTabs.forEach((tab) => tab.classList.remove("active"));
+    let allItem = document.querySelectorAll(".tab-item");
+    allItem.forEach((item) => item.classList.remove("itemDesign"));
+
     let selectedTab = document.getElementById(tabName);
-    selectedTab.classList.add('active');
+    selectedTab.classList.add("active");
     let selectedItem = document.getElementById(show + tabName);
-    selectedItem.classList.add('itemDesign');
-  }
+    selectedItem.classList.add("itemDesign");
+}
 
 function backPokemonCard(i) {
     if (i > 0) {
@@ -283,7 +282,7 @@ function closePokemonCard() {
 function scrollToBegin() {
     scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
     });
 }
 
@@ -293,20 +292,38 @@ function NotClosePokemonCard(event) {
 }
 
 // Window-Scroll
+let lastScrollPosition = 0;
+
 window.addEventListener("scroll", async function () {
-    if (await isEndOfPage() && endOfPage == false) {
-        endOfPage = true;
-        await onEndOfPage();
+    const currentScrollPosition = window.scrollY;
+    if (currentScrollPosition > lastScrollPosition) {
+        if ((await isEndOfPage()) && endOfPage == false) {
+            LoadingPokemonKeyframe("add");
+            endOfPage = true;
+
+            setTimeout(async function () {
+                await onEndOfPage();
+                LoadingPokemonKeyframe("remove");
+            }, 1000);
+        }
     }
+    lastScrollPosition = currentScrollPosition;
 });
 
+function LoadingPokemonKeyframe(x) {
+    let elements = document.querySelectorAll(".render-pokemon");
+    elements.forEach(function (element) {
+        element.classList[x]("loading");
+    });
+}
+
 async function isEndOfPage() {
-    return window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight;
+    return window.innerHeight + window.scrollY + 25 >= document.body.offsetHeight;
 }
 
 async function onEndOfPage() {
-   await loadPokemonJson(true);
-   endOfPage = false;
+    await loadPokemonJson(true);
+    endOfPage = false;
 }
 
 // Search-Filter:

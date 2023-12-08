@@ -9,17 +9,17 @@ body {
     background-position-y: center;
     background-attachment: fixed;
     margin: 0;
-    height: 100vh;
-    top:0;
+    top: 0;
+    overflow-x: hidden;
 }
 
-.pokemonTitle-position{
+.pokemonTitle-position {
     display: flex;
     justify-content: center;
     height: 220px;
 }
 
-.pokemonTitle{
+.pokemonTitle {
     scale: 2;
 }
 
@@ -352,4 +352,26 @@ body {
 
 .render-pokemon {
     cursor: pointer;
+}
+
+/* Loadingtime */
+@keyframes loadingAnimation {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+    
+      50% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+    
+      100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+}
+
+.loading {
+    animation: loadingAnimation 1500ms infinite;
 }

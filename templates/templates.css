@@ -44,7 +44,9 @@
     right: 0;
     z-index: 11;
     padding: 8px;
-    font-size: 64px;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
 }
 
 .mso-arrow{
@@ -56,8 +58,10 @@
     position: fixed;
     right: 50px;
     bottom: 100px;
-    font-size: 80px;
+    font-size: 64px;
     z-index: 100;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
 }
 
 .redHeart {
