@@ -19,18 +19,18 @@ function generateHtmlRenderPokemon(i) {
 
 function generateHtmlRenderPokedexCard(show, i) {
     return `
-        ${generateHtmlHeaderPokedexCard(show, i)};
-        ${generateHtmlInfoFieldPokedexCard(show, i)};
+        ${generateHtmlHeaderPokedexCard(show, i)}
+        ${generateHtmlInfoFieldPokedexCard(show, i)}
     `;
 }
 
 function generateHtmlHeaderPokedexCard(show, i) {
     return `
-    <span class="material-symbols-outlined mso-arrow mso-arrow-left" onclick="backPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_back_ios_new</span>
+    
     <div id="pokedex" onclick="NotClosePokemonCard(event)">
         <div class="pokedex-header" id="${show}renderPokemon${i}">
         <span class="material-symbols-outlined mso-close" onclick="closePokemonCard()">close</span>
-        <h1 class="pokemon-name pokemon-name-card z-index" id="${show}pokemonName${i}">Name</h1>
+        <h1 class="pokemon-name pokemon-name-media pokemon-name-card z-index" id="${show}pokemonName${i}">Name</h1>
         <div class ="card-position">
             <div class="pekedex-header-left">
                 <div class ="card-position-typeId"> 
@@ -88,7 +88,11 @@ return`
       </div>
       
     </div>
-        <span class="material-symbols-outlined mso-arrow mso-arrow-right" onclick="forwardPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_forward_ios</span>`;
+<div class="mso-arrows">
+    <div class="material-symbols-outlined mso-arrow mso-arrow-left" onclick="backPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_back_ios_new</div>
+    <div class="material-symbols-outlined mso-arrow mso-arrow-right" onclick="forwardPokemonCard(${i}); NotClosePokemonCard(event)" >arrow_forward_ios</div>   
+</div>
+     `;
 }
 
 

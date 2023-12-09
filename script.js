@@ -95,7 +95,7 @@ function whichColorBgPokemon(currentPokemon, pokemonBgColor, pokemonType) {
     } else if (currentPokemon["types"].length === 2) {
         const type1 = currentPokemon["types"][0]["type"]["name"];
         const type2 = currentPokemon["types"][1]["type"]["name"];
-        
+
         if (type1 in typeColors && type2 in typeColors) {
             pokemonBgColor.style.background = `linear-gradient(to bottom right, ${typeColors[type1]}, ${typeColors[type2]})`;
         } else {
@@ -128,7 +128,7 @@ function showPokemonCard(i) {
     renderingFunctions(currentPokemon, i, show);
 }
 
-function renderingFunctions (currentPokemon, i, show){
+function renderingFunctions(currentPokemon, i, show) {
     renderPokemonElement(currentPokemon, i, show);
     switchTab("aboutTab" + i, show);
     renderAboutPokemon(currentPokemon, i);
@@ -286,3 +286,7 @@ async function includeHTML() {
         }
     }
 }
+
+
+// Toggle Search-Inputfield
+
