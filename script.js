@@ -1,7 +1,7 @@
-let pokemonId = 250;
+let pokemonId = 1021;
 let pokemons = [];
-let loadLimit = 20;
-let endOfPage = false;
+let loadLimit = 25;
+let endOfPage = true;
 let urls = [];
 const typeColors = {
     normal: "#A8A77A",
@@ -35,19 +35,22 @@ async function renderUrl() {
 }
 
 async function loadPokemonJson(morePokemon) {
-    if (morePokemon) {
-        let j = (k = pokemons.length + 1);
-        for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
-            let url = urls[j];
-            await loadPokemonJsonLoop(url);
-        }
-    } else {
-        for (let i = 1; i <= loadLimit && i <= pokemonId; i++) {
-            let url = urls[i];
-            await loadPokemonJsonLoop(url);
-        }
+    if (endOfPage == true) {
+        if (morePokemon) {
+            let j = (k = pokemons.length + 1);
+            for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
+                let url = urls[j];
+                await loadPokemonJsonLoop(url);
+            }
+        } else {
+            for (let i = 1; i <= loadLimit && i <= pokemonId; i++) {
+                let url = urls[i];
+                await loadPokemonJsonLoop(url);
+                endOfPage = false;
+            }
+        } 
+        renderPokemon();
     }
-    renderPokemon();
 }
 
 async function loadPokemonJsonLoop(url) {
@@ -106,7 +109,7 @@ function whichColorBgPokemon(currentPokemon, pokemonBgColor, pokemonType) {
 }
 
 function formateNumber(zahl) {
-    if (zahl >= 1 && zahl <= 151) {
+    if (zahl >= 1 && zahl <= pokemonId) {
         return `#${zahl.toString().padStart(3, "0")}`;
     }
 }
@@ -224,10 +227,10 @@ window.addEventListener("scroll", async function () {
             LoadingPokemonKeyframe("add");
             endOfPage = true;
 
-            setTimeout(async function () {
+            (async function() {
                 await onEndOfPage();
                 LoadingPokemonKeyframe("remove");
-            }, 1000);
+              })();
         }
     }
     lastScrollPosition = currentScrollPosition;
