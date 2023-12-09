@@ -94,6 +94,16 @@
     padding: inherit;
 }
 
+.mso-close-pokedex {
+    position: absolute;
+    padding: 2px;
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    z-index: 10;
+}
+
 .mso-search{
     font-size: 40px !important;
     z-index: 10;

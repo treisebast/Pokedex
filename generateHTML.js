@@ -29,7 +29,7 @@ function generateHtmlHeaderPokedexCard(show, i) {
     
     <div id="pokedex" onclick="NotClosePokemonCard(event)">
         <div class="pokedex-header" id="${show}renderPokemon${i}">
-        <span class="material-symbols-outlined mso-close" onclick="closePokemonCard()">close</span>
+        <span class="material-symbols-outlined mso-close-pokedex" onclick="closePokemonCard()">close</span>
         <h1 class="pokemon-name pokemon-name-media pokemon-name-card z-index" id="${show}pokemonName${i}">Name</h1>
         <div class ="card-position">
             <div class="pekedex-header-left">
