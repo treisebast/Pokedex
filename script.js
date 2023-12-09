@@ -253,9 +253,9 @@ async function onEndOfPage() {
 
 // Toggle Search-Inputfield
 function toggleSearch(show = true) {
-    var searchInput = document.getElementById('inputField');
-    var searchIcon = document.getElementById('searchIcon');
-    var closeIcon = document.getElementById('closeIcon');
+    let searchInput = document.getElementById('inputField');
+    let searchIcon = document.getElementById('searchIcon');
+    let closeIcon = document.getElementById('closeIcon');
 
     if (show) {
         searchInput.style.display = 'inline-block';
