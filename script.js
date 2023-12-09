@@ -27,7 +27,6 @@ const typeColors = {
 async function renderUrl() {
     for (let i = 0; i <= pokemonId; i++) {
         let id = i;
-        // let url = `https://pokeapi.co/api/v2/pokemon/${id}?limit=3`;
         let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
         urls.push(url);
     }

@@ -98,7 +98,7 @@
 .mso-up{
     position: fixed;
     right: 16px;
-    bottom: 100px;
+    bottom: 16px;
     font-size: 48px;
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.3);
@@ -135,6 +135,7 @@
     top: 116px;
     background-color: white !important;
     padding: 12px;
+    width: 250px !important;
 }
 
 @media screen and (max-width: 825px) {
