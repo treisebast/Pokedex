@@ -24,6 +24,11 @@ const typeColors = {
     fairy: "#D685AD",
 };
 
+async function init() {
+    await includeHTML();
+    await renderUrl();
+}
+
 async function renderUrl() {
     for (let i = 0; i <= pokemonId; i++) {
         let id = i;
@@ -285,11 +290,6 @@ function filterNames(x) {
 }
 
 // Template
-async function init() {
-    await includeHTML();
-    await renderUrl();
-}
-
 async function includeHTML() {
     let includeElements = document.querySelectorAll("[w3-include-html]");
     for (let i = 0; i < includeElements.length; i++) {
