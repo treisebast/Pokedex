@@ -86,16 +86,50 @@
     border-radius: 100%;
 }
 
+.mso-close {
+    display: none;
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    padding: inherit;
+}
+
 .mso-search{
-    font-size: 32px !important;
+    font-size: 40px !important;
     z-index: 10;
+    display: none;
+}
+
+.inputfield-main{
+    position: absolute;
+    right: 16px;
+    top: 116px;
+    background-color: white !important;
+    padding: 12px;
+}
+
+@media screen and (max-width: 825px) {
+    .inputfield-header {
+        display: none;
+    }
+
+    .mso-search{
+        display: inline-block;
+    }
+}
+@media screen and (min-width: 825px) {
+    .mso-search{
+        display: none !important;
+    }
+}
+
+.inputfield-main{
+    display: none;
 }
 
 .search-position{
     display: flex;
     align-items: center;
-    max-width: 400px;
-    width: 50vw;
     margin-left: 24px;
 }
 
@@ -184,13 +218,15 @@
     line-height: normal;
 }
 
-.inputfield {
+.inputfield-header {
     padding: 8px;
     background-color: rgba(100, 100, 100, 0.05);
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     border-radius: 8px;
     flex:1;
+    width: 34vw;
     border: unset;
     outline: unset;
+    max-width: 400px;
 }

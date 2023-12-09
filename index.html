@@ -34,6 +34,10 @@
     <!-- Header template -->
     <div w3-include-html="./templates/header.html"></div>
 
+    <!-- Search, Input, Close -->
+    <input class="inputfield-main inputfield-header" id="inputField" type="text" placeholder="Name oder ID eingeben" onkeyup="filterNames('')">
+    <span class="material-symbols-outlined mso-close" id="closeIcon" onclick="toggleSearch(false)">close</span>
+
     <!-- Dialog bauen PokedexCard-->
     <div id="showPokemonCard" class="dialog-bg d-none" onclick="closePokemonCard()">
         <div id="pokemonCardInfo" class="pokemon-card-info"></div>

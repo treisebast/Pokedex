@@ -1,6 +1,6 @@
-let pokemonId = 20;
+let pokemonId = 250;
 let pokemons = [];
-let loadLimit = 3;
+let loadLimit = 20;
 let endOfPage = false;
 let urls = [];
 const typeColors = {
@@ -54,7 +54,6 @@ async function loadPokemonJsonLoop(url) {
     let response = await fetch(url);
     let pokemon = await response.json();
     pokemons.push(pokemon);
-    console.log(pokemon);
 }
 
 function renderPokemon() {
@@ -167,7 +166,6 @@ function renderMovePokemon(currentPokemon, i) {
 
 // Tab Fenster InfoField
 function switchTab(tabName, show) {
-    console.log(show + tabName);
     let allTabs = document.querySelectorAll(".tab-content");
     allTabs.forEach((tab) => tab.classList.remove("active"));
     let allItem = document.querySelectorAll(".tab-item");
@@ -251,9 +249,26 @@ async function onEndOfPage() {
     endOfPage = false;
 }
 
+// Toggle Search-Inputfield
+function toggleSearch(show = true) {
+    var searchInput = document.getElementById('inputField');
+    var searchIcon = document.getElementById('searchIcon');
+    var closeIcon = document.getElementById('closeIcon');
+
+    if (show) {
+        searchInput.style.display = 'inline-block';
+        searchIcon.style.display = 'none';
+        closeIcon.style.display = 'inline-block';
+    } else {
+        searchInput.style.display = 'none';
+        searchIcon.style.display = 'inline-block';
+        closeIcon.style.display = 'none';
+    }
+}
+
 // Search-Filter:
-function filterNames() {
-    let search = document.getElementById("search").value.trim().toLowerCase();
+function filterNames(x) {
+    let search = document.getElementById(`inputField${x}`).value.trim().toLowerCase();
     let content = document.getElementById("content");
     content.innerHTML = "";
     for (let i = 0; i < pokemons.length; i++) {
@@ -286,7 +301,3 @@ async function includeHTML() {
         }
     }
 }
-
-
-// Toggle Search-Inputfield
-
