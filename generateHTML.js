@@ -27,8 +27,8 @@ function generateHtmlRenderPokedexCard(show, i) {
 function generateHtmlHeaderPokedexCard(show, i) {
     return `
     
-    <div id="pokedex" onclick="NotClosePokemonCard(event)">
-        <div class="pokedex-header" id="${show}renderPokemon${i}">
+    <div id="pokedex" >
+        <div class="pokedex-header" id="${show}renderPokemon${i}" onclick="NotClosePokemonCard(event)">
         <span class="material-symbols-outlined mso-close-pokedex" onclick="closePokemonCard()">close</span>
         <h1 class="pokemon-name pokemon-name-media pokemon-name-card z-index" id="${show}pokemonName${i}">Name</h1>
         <div class ="card-position">
@@ -49,7 +49,7 @@ function generateHtmlHeaderPokedexCard(show, i) {
 
 function generateHtmlInfoFieldPokedexCard(show, i){
 return`
-    <div class="info-field" >
+    <div class="info-field" onclick="NotClosePokemonCard(event)">
         <div class="tab-container">
           <div class="tab-item" id="${show}aboutTab${i}" onclick="switchTab('aboutTab${i}', '${show}')">About</div>
           <div class="tab-item" id="${show}statsTab${i}" onclick="switchTab('statsTab${i}', '${show}')">Stats</div>
