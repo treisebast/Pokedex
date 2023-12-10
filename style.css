@@ -29,6 +29,7 @@ body {
     border-radius: 40px;
     width: 400px;
     max-width: 400px;
+    min-height: 567px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -359,6 +360,7 @@ body {
 
 .pokemon-card-info {
     display: flex;
+    overflow: auto;
 }
 
 
@@ -479,6 +481,10 @@ body {
 
     .aboutPokemon table {
         border-spacing: unset
+    }
+
+    .mso-arrows{
+        bottom: 24px !important;
     }
     
 }
