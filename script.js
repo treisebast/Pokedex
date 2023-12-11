@@ -39,7 +39,7 @@ async function renderUrl() {
 }
 
 async function loadPokemonJson(morePokemon) {
-    if (endOfPage == true) {
+    if (endOfPage == true || morePokemon == true) {
         if (morePokemon) {
             let j = (k = pokemons.length + 1);
             for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
@@ -221,16 +221,16 @@ function NotClosePokemonCard(event) {
     event.stopPropagation();
 }
 
-// Window-Scroll
+// Window-Scroll-End-of-Page-Pokemonload
 let lastScrollPosition = 0;
 
 window.addEventListener("scroll", async function () {
     const currentScrollPosition = window.scrollY;
     if (currentScrollPosition > lastScrollPosition) {
         if ((await isEndOfPage()) && endOfPage == false) {
-            LoadingPokemonKeyframe("add");
             endOfPage = true;
-
+            LoadingPokemonKeyframe("add");
+            
             (async function() {
                 await onEndOfPage();
                 LoadingPokemonKeyframe("remove");
@@ -244,6 +244,7 @@ function LoadingPokemonKeyframe(x) {
     let elements = document.querySelectorAll(".render-pokemon");
     elements.forEach(function (element) {
         element.classList[x]("loading");
+    document.getElementById('btnLoadPokemon').classList[x]('d-none');
     });
 }
 
