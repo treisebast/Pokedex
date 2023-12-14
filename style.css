@@ -207,7 +207,7 @@ body {
 }
 
 /* Button Load Pokemon */
-.btn-loadPokemon {
+.btn-load-Pokemon {
     text-decoration: none;
     padding: 12px;
     cursor: pointer;
@@ -221,7 +221,7 @@ body {
     font-size: 20px;
 }
 
-.btn-loadPokemon:hover {
+.btn-load-Pokemon:hover {
     transform: scale(1.05);
 }
 
