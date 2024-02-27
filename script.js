@@ -1,8 +1,10 @@
-let pokemonId = 1021;
+let pokemonId = 649;
 let pokemons = [];
-let loadLimit = 25;
+let loadLimit = 50;
 let endOfPage = true;
-let urls = [];
+let batchUrls = [];
+let loadMore = false;
+
 const typeColors = {
     normal: "#A8A77A",
     fire: "#EE8130",
@@ -30,37 +32,44 @@ async function init() {
 }
 
 async function renderUrl() {
-    for (let i = 0; i <= pokemonId; i++) {
-        let id = i;
-        let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-        urls.push(url);
+    for (let i = 1; i <= loadLimit; i++) {
+        await generateUrlAndBatch(i);
     }
-    loadPokemonJson();
+    endOfPage = false;
+    renderPokemon();
 }
 
-async function loadPokemonJson(morePokemon) {
-    if (endOfPage == true || morePokemon == true) {
-        if (morePokemon) {
-            let j = (k = pokemons.length + 1);
-            for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
-                let url = urls[j];
-                await loadPokemonJsonLoop(url);
-            }
-        } else {
-            for (let i = 1; i <= loadLimit && i <= pokemonId; i++) {
-                let url = urls[i];
-                await loadPokemonJsonLoop(url);
-                endOfPage = false;
-            }
-        } 
-        renderPokemon();
+async function loadMorePokemon() {
+    if (loadMore === true) {
+        toggleLoadingButton();
+        loadMore = false;
+        let j = (k = pokemons.length + 1);
+        for (j; j <= k - 1 + loadLimit && j <= pokemonId; j++) {
+            await generateUrlAndBatch(j);
+        }
+    }
+    endOfPage = false;
+    renderPokemon();
+}
+
+async function generateUrlAndBatch(x) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${x}`;
+    batchUrls.push(url);
+    if (batchUrls.length === loadLimit || x === pokemonId) {
+        await loadPokemonJsonBatch(batchUrls);
+        batchUrls = [];
     }
 }
 
-async function loadPokemonJsonLoop(url) {
-    let response = await fetch(url);
-    let pokemon = await response.json();
-    pokemons.push(pokemon);
+async function loadPokemonJsonBatch(urls) {
+    return Promise.all(urls.map((url) => fetch(url)))
+        .then((responses) => Promise.all(responses.map((response) => response.json())))
+        .then((jsons) => {
+            pokemons.push(...jsons);
+        })
+        .catch((error) => {
+            console.error("Fehler beim Laden der Pokemon:", error);
+        });
 }
 
 function renderPokemon() {
@@ -73,6 +82,7 @@ function renderPokemon() {
 
         renderPokemonElement(currentPokemon, i, "");
     }
+    toggleLoadingButton();
 }
 
 function renderPokemonElement(currentPokemon, i, show) {
@@ -230,11 +240,11 @@ window.addEventListener("scroll", async function () {
         if ((await isEndOfPage()) && endOfPage == false) {
             endOfPage = true;
             LoadingPokemonKeyframe("add");
-            
-            (async function() {
+
+            (async function () {
                 await onEndOfPage();
                 LoadingPokemonKeyframe("remove");
-              })();
+            })();
         }
     }
     lastScrollPosition = currentScrollPosition;
@@ -244,7 +254,7 @@ function LoadingPokemonKeyframe(x) {
     let elements = document.querySelectorAll(".render-pokemon");
     elements.forEach(function (element) {
         element.classList[x]("loading");
-    document.getElementById('btnLoadPokemon').classList[x]('d-none');
+        document.getElementById("btnLoadPokemon").classList[x]("d-none");
     });
 }
 
@@ -253,24 +263,35 @@ async function isEndOfPage() {
 }
 
 async function onEndOfPage() {
-    await loadPokemonJson(true);
-    endOfPage = false;
+    loadMore = true;
+    toggleLoadingButton();
+    await loadMorePokemon();
 }
+
+function toggleLoadingButton() {
+    let button = document.getElementById('btnLoadPokemon');
+    if (button.innerHTML === 'Weitere Pokemon´s laden') {
+        button.innerHTML = 'Pokemon´s werden geladen...';
+    } else {
+        button.innerHTML = 'Weitere Pokemon´s laden';
+    }
+}
+
 
 // Toggle Search-Inputfield
 function toggleSearch(show = true) {
-    let searchInput = document.getElementById('inputField');
-    let searchIcon = document.getElementById('searchIcon');
-    let closeIcon = document.getElementById('closeIcon');
+    let searchInput = document.getElementById("inputField");
+    let searchIcon = document.getElementById("searchIcon");
+    let closeIcon = document.getElementById("closeIcon");
 
     if (show) {
-        searchInput.style.display = 'inline-block';
-        searchIcon.style.display = 'none';
-        closeIcon.style.display = 'inline-block';
+        searchInput.style.display = "inline-block";
+        searchIcon.style.display = "none";
+        closeIcon.style.display = "inline-block";
     } else {
-        searchInput.style.display = 'none';
-        searchIcon.style.display = 'inline-block';
-        closeIcon.style.display = 'none';
+        searchInput.style.display = "none";
+        searchIcon.style.display = "inline-block";
+        closeIcon.style.display = "none";
     }
 }
 
