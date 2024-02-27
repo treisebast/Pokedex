@@ -4,6 +4,7 @@ let loadLimit = 50;
 let endOfPage = true;
 let batchUrls = [];
 let loadMore = false;
+let firstPokemonLoad = false;
 
 const typeColors = {
     normal: "#A8A77A",
@@ -37,10 +38,11 @@ async function renderUrl() {
     }
     endOfPage = false;
     renderPokemon();
+    firstPokemonLoad = true;
 }
 
 async function loadMorePokemon() {
-    if (loadMore === true) {
+    if (loadMore === true && firstPokemonLoad === true) {
         toggleLoadingButton();
         loadMore = false;
         let j = (k = pokemons.length + 1);
